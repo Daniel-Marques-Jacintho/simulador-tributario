@@ -1,0 +1,12 @@
+import { test, expect } from 'bun:test';
+import {trials, schedule, calculate, seed, compareManual} from './engine';
+import {empty,snapshot} from './records';
+import {simples} from '../lib/tributos';
+for(const t of trials)test(t.code+' '+t.objective,()=>expect(t.run()).toBe(t.expected));
+test('Price conserva centavos, ajustes e saldo final',()=>{for(const n of [1,2,36,360]){const a=schedule(1299999,n,.0143,'Price convencional');expect(a.reduce((s,r)=>s+r.amort,0)).toBe(1299999);expect(a.at(-1).closing).toBe(0);for(const r of a){expect(r.pay).toBe(r.amort+r.interest);expect(r.opening-r.amort).toBe(r.closing)}}});
+test('taxas inválidas não viram zero',()=>expect(()=>calculate('Banco',{...seed('Banco'),monthly:'-1'})).toThrow());
+test('Selic manual exige origem',()=>expect(()=>calculate('Banco',{...seed('Banco'),index:'Selic',refRate:'15',refDate:'2026-11-25',refSource:''})).toThrow());
+test('referência não gera crédito; RBT12 acima do limite bloqueia DAS',()=>{expect(calculate('Banco',seed('Banco')).credit).toBeNull();expect(simples(360000001n,50000n,'I')).toBeNull()});
+test('consórcio: mudar regime do intermediário não inventa dedução',()=>{const a=calculate('Consórcio',seed('Consórcio')),b=calculate('Consórcio',{...seed('Consórcio'),intermediary:'Simples Nacional'});expect(a.total).toBe(b.total);expect(b.ibs).toBeNull()});
+test('tolerância inclusiva, sem oficialidade',()=>{expect(compareManual(1000,1001,1).label).toBe('Dentro da tolerância informada');expect(compareManual(1000,999,0).difference).toBe(-1)});
+test('versões retêm entradas e resultados anteriores',()=>{const db=empty(),f=seed('Banco');const a=snapshot('Banco',f,'Concluída',calculate('Banco',f),'',db);db.scenarios.push(a);const b=snapshot('Banco',{...f,months:'12'},'Rascunho',null,a.lineage,db);expect(b.revision).toBe(2);expect(a.form.months).toBe('36');expect(b.edition.params).toBe(a.edition.params)});

@@ -1,0 +1,111 @@
+{
+  "version": "RTC-2026.1",
+  "start": "2026-01-01",
+  "end": "2026-12-31",
+  "status": "Referência legal local; não homologada pela Rands",
+  "owner": "Curadoria fiscal a designar",
+  "approver": "Não registrado",
+  "reason": "Preservar as simulações ordinárias de 2026; não aplicar a regimes específicos.",
+  "sources": [
+    "LC 214/2025, arts. 343, 346 e 348",
+    "LC 123/2006, art. 18 e Anexos I a V"
+  ],
+  "regular": {
+    "cbsBps": 90,
+    "ibsBps": 10
+  },
+  "limits": [
+    180000,
+    360000,
+    720000,
+    1800000,
+    3600000
+  ],
+  "annexes": {
+    "I": {
+      "name": "Comércio",
+      "rates": [
+        400,
+        730,
+        950,
+        1070,
+        1430
+      ],
+      "deductions": [
+        0,
+        5940,
+        13860,
+        22500,
+        87300
+      ]
+    },
+    "II": {
+      "name": "Indústria",
+      "rates": [
+        450,
+        780,
+        1000,
+        1120,
+        1470
+      ],
+      "deductions": [
+        0,
+        5940,
+        13860,
+        22500,
+        85500
+      ]
+    },
+    "III": {
+      "name": "Serviços",
+      "rates": [
+        600,
+        1120,
+        1350,
+        1600,
+        2100
+      ],
+      "deductions": [
+        0,
+        9360,
+        17640,
+        35640,
+        125640
+      ]
+    },
+    "IV": {
+      "name": "Serviços",
+      "rates": [
+        450,
+        900,
+        1020,
+        1400,
+        2200
+      ],
+      "deductions": [
+        0,
+        8100,
+        12420,
+        39780,
+        183780
+      ]
+    },
+    "V": {
+      "name": "Serviços",
+      "rates": [
+        1550,
+        1800,
+        1950,
+        2050,
+        2300
+      ],
+      "deductions": [
+        0,
+        4500,
+        9900,
+        17100,
+        62100
+      ]
+    }
+  }
+}
